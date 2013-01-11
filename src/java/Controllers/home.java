@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package home;
+package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,9 +53,7 @@ public class home extends HttpServlet {
 //            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        conn.closeConnexion();
-        String pseudo = "victor";
-        request.setAttribute("nom", pseudo);
-        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");
         rd.forward(request, response);
     }
 

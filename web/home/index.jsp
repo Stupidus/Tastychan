@@ -13,5 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <img src="template/1355667605233.gif"/>
+        <%@include file='../template/test.html'%>
     </body>
 </html>
