@@ -46,6 +46,10 @@ public class login extends HttpServlet {
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {                
         String username = (String) request.getAttribute("username");
         String password = (String) request.getAttribute("password");
+        if(Models.login.authenticate(username, password))
+            request.setAttribute("logged", "sucess");
+        else
+            request.setAttribute("logged", "failure");
         RequestDispatcher rd = request.getRequestDispatcher("login/login.jsp");
         rd.forward(request, response);
     }

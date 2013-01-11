@@ -23,6 +23,7 @@
 					<li><a href="">Sculptures</a></li>
 				</ul>
 			</li>
+                        <li><a href="login">Connexion</a></li>
 		</ul>
 	</nav>
 	<div id="content">
