@@ -26,7 +26,8 @@ public class login {
         boolean auth = false;
         try {
             String password = StringComponent.getEncodedPassword(plainPassword);
-            ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
+//            ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
+            ResultSet rset = conn.execQuery("SELECT * FROM users");
             try {
             
             }
