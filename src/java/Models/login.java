@@ -26,10 +26,11 @@ public class login {
         boolean auth = false;
         try {
             String password = StringComponent.getEncodedPassword(plainPassword);
-//            ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
-            ResultSet rset = conn.execQuery("SELECT * FROM users");
+            ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
+            //ResultSet rset = conn.execQuery("SELECT * FROM users");
             try {
-            
+                if(rset.next())
+                    auth = true;
             }
             catch(NullPointerException ex) {
             }
@@ -38,6 +39,7 @@ public class login {
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        conn.closeConnexion();
         return auth;
     }
 }
