@@ -16,7 +16,8 @@ public class Connexion {
         }
         
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://pipit.u-strasbg.fr/2012_vantoine?user=2012_vantoine&password=jpkc5k6t");        
+            //this.conn = DriverManager.getConnection("jdbc:mysql://130.79.80.21/2012_vantoine", "2012_vantoine", "jpkc5k6t");        
+            this.conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:1664/2012_vantoine", "2012_vantoine", "jpkc5k6t");        
         } catch (SQLException ex) {
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
