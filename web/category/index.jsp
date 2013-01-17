@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home
+    Document   : category
     Created on : 10 janv. 2013, 14:33:15
     Author     : Victor
 --%>
@@ -15,5 +15,6 @@
         out.println("Bienvenue "+request.getSession().getAttribute("username"));
     }
 %>
-<p>Coucou</p>
+
+
 <%@include file='../template/footer.jsp'%>

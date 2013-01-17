@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 /**
  *
@@ -47,11 +45,14 @@ public class login extends HttpServlet {
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         if(username != null && password != null) {
-            if(Models.login.authenticate(username, password))
-                request.setAttribute("logged", "sucess");
+            if(Models.login.authenticate(username, password)) {
+                request.setAttribute("flash", "<p class='green'>Vous êtes à présent connecté</p>");
+                HttpSession session = request.getSession(true);
+                session.setAttribute("username", username);
+            }
             else
-                request.setAttribute("logged", "failure");
-            RequestDispatcher rd = request.getRequestDispatcher("login/login.jsp");
+                request.setAttribute("flash", "<p class='red'>Erreur lors de la connexion</p>");
+            RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");
             rd.forward(request, response);
         }
         else {
