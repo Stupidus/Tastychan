@@ -5,7 +5,9 @@
 package Controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Victor
  */
-public class category extends HttpServlet {
+public class upload extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,11 +36,39 @@ public class category extends HttpServlet {
         if("index".equals(request.getParameter("action")) || request.getParameter("action") == null) {
             this.index(request, response);
         }
+        else if(request.getParameter("action").equals("upload")) {
+            this.upload(request, response);
+        }
     }
     
-    public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {           
-        //int idCategory = Integer.parseInt(request.getParameter("id_category"));        
-        RequestDispatcher rd = request.getRequestDispatcher("category/index.jsp");
+    public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {                
+        RequestDispatcher rd = request.getRequestDispatcher("upload/index.jsp");
+        rd.forward(request, response);
+    }
+    
+    public void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
+        request.setAttribute("flash", "<p class='green'>L'image a uploadée</p>");
+//        try {
+//        List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+//            for (FileItem item : items) {
+//                if (item.isFormField()) {
+//                    // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+//                    String fieldname = item.getFieldName();
+//                    String fieldvalue = item.getString();
+//                    // ... (do your job here)
+//                } else {
+//                    // Process form file field (input type="file").
+//                    String fieldname = item.getFieldName();
+//                    String filename = FilenameUtils.getName(item.getName());
+//                    InputStream filecontent = item.getInputStream();
+//                    // ... (do your job here)
+//                }
+//            }
+//        } catch (FileUploadException e) {
+//            throw new ServletException("Cannot parse multipart request.", e);
+//        }
+//        Models.images.uploadImage(id, null, null, categorie_id, user_id);
+        RequestDispatcher rd = request.getRequestDispatcher("upload/index.jsp");
         rd.forward(request, response);
     }
 

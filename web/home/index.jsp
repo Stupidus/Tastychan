@@ -15,5 +15,8 @@
         out.println("Bienvenue "+request.getSession().getAttribute("username"));
     }
 %>
-<p>Coucou</p>
+<p>
+    Bienvenue sur TastyChan !<br/><br/>
+    Ici, pas de /b ou de /soc ou de /gif ou de /r [...] ou de moutons, y a que du bon !
+</p>
 <%@include file='../template/footer.jsp'%>

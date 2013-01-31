@@ -28,6 +28,7 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("listeCategories",  Models.categories.getAll());
         if("index".equals(request.getParameter("action")) || request.getParameter("action") == null) {
             this.index(request, response);
         }
@@ -45,10 +46,12 @@ public class login extends HttpServlet {
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         if(username != null && password != null) {
-            if(Models.login.authenticate(username, password)) {
+            String[] authenticationResult = Models.login.authenticate(username, password);
+            if(authenticationResult[0].equals("true")) {
                 request.setAttribute("flash", "<p class='green'>Vous êtes à présent connecté</p>");
                 HttpSession session = request.getSession(true);
                 session.setAttribute("username", username);
+                session.setAttribute("id", authenticationResult[1]);
             }
             else
                 request.setAttribute("flash", "<p class='red'>Erreur lors de la connexion</p>");

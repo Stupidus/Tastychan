@@ -21,16 +21,18 @@ public class login {
     private String username;
     private String password;
     
-    public static boolean authenticate(String username, String plainPassword) {
+    public static String[] authenticate(String username, String plainPassword) {
         Connexion conn = new Connexion();
+        String[] result = new String[2];
         boolean auth = false;
         try {
             String password = StringComponent.getEncodedPassword(plainPassword);
             ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
-            //ResultSet rset = conn.execQuery("SELECT * FROM users");
             try {
-                if(rset.next())
-                    auth = true;
+                while(rset.next()) {
+                    result[0] = "true";
+                    result[1] = rset.getString(1);
+                }
             }
             catch(NullPointerException ex) {
             }
@@ -40,6 +42,6 @@ public class login {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.closeConnexion();
-        return auth;
+        return result;
     }
 }

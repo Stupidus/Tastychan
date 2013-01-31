@@ -4,19 +4,14 @@
  */
 package Controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Datasources.Connexion;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+
+import Models.categories;
+import java.io.IOException;
 /**
  *
  * @author Victor
@@ -34,26 +29,8 @@ public class home extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
-//        ArrayList vars = new ArrayList();
-//        vars.add(new String("Victor"));
-//        Connexion conn = new Connexion();
-//        try {
-//            ResultSet rset = conn.execQuery("SELECT * FROM Test");
-//            while(rset.next()) {
-//                vars.add(rset.getString(2));
-//            }
-//            try {
-//                layout.DefaultLayout.render(out, "home.home_display", vars);
-//            } finally {            
-//                out.close();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        conn.closeConnexion();
-        RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");
+        request.setAttribute("listeCategories",  Models.categories.getAll());
+        RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");        
         rd.forward(request, response);
     }
 

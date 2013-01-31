@@ -30,6 +30,7 @@ public class logout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("listeCategories",  Models.categories.getAll());
         if("index".equals(request.getParameter("action")) || request.getParameter("action") == null) {
             this.index(request, response);
         }
