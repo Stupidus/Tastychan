@@ -60,44 +60,77 @@ nav a:hover{
 form{
 	margin:auto;
 	width: 50%;
-	text-align:center;
+	text-align:right;
 }
 
 fieldset{
-	border: 1px solid #009099;
+	border: 1px solid #9bbf05;
+	padding: 25px;
+	text-align: justify;
 	-moz-border-radius : 6px;
 	-webkit-border-radius : 6px;
 }
 
+#loginForm fieldset{
+	text-align: center;
+	border-color: #009099;
+	padding: 0;
+}
+
 legend{
 	padding: 0 5px;
-	text-align: right;
+	text-align: left;
 	font-weight: bold;
 	font-size: 1.5em;
-	color: #0f357e;
+	color: #0a7b2d;
+}
+
+#loginForm legend{
+	text-align: right;
+	color:  #0f357e;
 }
 
 label{
 	display: inline-block;
 	width: 100px;
-	color: #0f357e;
+	color: #0a7b2d;
 	font-weight: bold;
 }
 
+#loginForm label{
+	color: #0f357e;
+}
+
+input{
+	margin-bottom: 10px;
+	width: 50%;
+}
+
+select{
+	width: 50%;
+}
 input[type=submit]{
-	width: 100%;
+	width: 25%;
 	margin: 10px 0;
 	padding: 8px 15px;
-	background-color:#009099;
+	background-color:#9bbf05;
 	color: #ffffff;
 	-moz-border-radius : 6px;
 	-webkit-border-radius : 6px;
 }
 
-input[type=submit]:hover{
-	background-color:#0f357e;
+
+#loginForm input[type=submit]{
+	width: 100%;
+	background-color: #009099;
 }
 
+input[type=submit]:hover{
+	background-color:#0a7b2d;
+}
+#loginForm input[type=submit]:hover{
+	background-color: #0f357e;
+}
 footer{
 	clear:both;
 	color: lightgrey;
@@ -105,13 +138,6 @@ footer{
 	font-size:0.8em;
 	font-style: italic;
 	padding-top: 20px;
-}
-
-
-#content{
-	width:76%;
-	margin-right: 15px;
-	float:right;
 }
 
 .red {
@@ -122,9 +148,18 @@ footer{
     color: green;
 }
 
+#content{
+	width:76%;
+	margin-right: 15px;
+	float:right;
+}
+
+
+
+/*TastyGalery*/
 #thumbs {
 	list-style: none outside none;
-	margin: 0 auto; 
+	margin: 0 auto;
 	padding: 0;
 	width: 70%;
 }
@@ -170,4 +205,8 @@ footer{
 	-moz-box-shadow: 1px 1px 10px #000;
 	-o-box-shadow: 1px 1px 10px #000;
 	-webkit-box-shadow: 1px 1px 10px #000;
+}
+
+#thumbs{
+	margin-bottom: 150px;
 }

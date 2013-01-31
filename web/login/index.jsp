@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file='../template/header.jsp'%>
-<form action="?action=login" method="post">
+<form id="loginForm" action="?action=login" method="post">
             <fieldset>
 			<legend>Connexion</legend>
 			<label for="username">Username :</label>

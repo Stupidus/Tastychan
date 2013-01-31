@@ -25,7 +25,7 @@
         <label for="image">Image : </label>
         <input type="file" name="image" id="image"/>
         <br/>
-        <label for="categorie">Catégorie</label>
+        <label for="categorie">Catégorie :</label>
         <select name="categorie" id="categorie">
             <%
                 for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
