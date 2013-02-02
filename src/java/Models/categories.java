@@ -37,10 +37,10 @@ public class categories {
                 }
             }
             catch(NullPointerException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.closeConnexion();        
         return listeCategorie;

@@ -20,6 +20,10 @@
         <servlet-name>upload</servlet-name>
         <servlet-class>Controllers.upload</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>image</servlet-name>
+        <servlet-class>Controllers.image</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>upload</servlet-name>
         <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>image</servlet-name>
+        <url-pattern>/image</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

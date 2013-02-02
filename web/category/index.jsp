@@ -9,12 +9,21 @@
 <%
     if(request.getAttribute("flash") != null) {
         out.println(request.getAttribute("flash"));
-    }
-    
-    if(request.getSession().getAttribute("username") != null) {
-        out.println("Bienvenue "+request.getSession().getAttribute("username"));
-    }
+    }    
 %>
 
+<%
+    if(request.getAttribute("listeImages") != null) {
+        for(String[] image : (String[][]) request.getAttribute("listeImages")) {
+            %>
+            <p>
+                <b><%= image[1] %></b><br/>
+                <a href="image?id=<%= image[0] %>" target="_blank"><img src="image?id=<%= image[0] %>" style="max-width:200px;max-height:200px"/></a>
+                <pre><%= image[2] %></pre>
+            </p>
+            <%
+        }
+    }
+%>
 
 <%@include file='../template/footer.jsp'%>

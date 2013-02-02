@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="template/TastyChanStyle.css" rel="stylesheet" type="text/css">
 		<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-        <title>JSP Page</title>
+        <title>TastyChan by TastyCorp</title>
     </head>
     <body>
 	<header>
@@ -12,27 +12,37 @@
 	</header>
 	<nav>
 		<ul>
-			<li><a href="/Tastychan/">Accueil</a></li>
-			<li><a href="#">Recherche</a></li>
-			<li>Catégories
-                            <ul>
-                                <%
-                                    if(request.getAttribute("listeCategories") != null) {
-                                        for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
-                                            %>
-                                            <li><a href="/Tastychan/category?id=<%= categorie[0] %>"><%= categorie[1] %></a></li>
-                                            <%
-                                        }
+                    <li>
+                        <%
+                        if(request.getSession().getAttribute("username") != null) {
+                            out.println("Bienvenue "+request.getSession().getAttribute("username"));
+                        }
+                     %>
+                    </li>
+                    <% if(request.getSession().getAttribute("username") == null) { %>
+                        <li><a href="/Tastychan/login">Connexion</a></li>
+                    <% } else { %>
+                        <li><a href="/Tastychan/logout">Déconnexion</a></li>
+                    <% } %>
+                    <li>&nbsp;</li>
+                    <li><a href="/Tastychan/">Accueil</a></li>
+                    <li><a href="#">Recherche</a></li>
+                    <li>Catégories
+                        <ul>
+                            <%
+                                if(request.getAttribute("listeCategories") != null) {
+                                    for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
+                                        %>
+                                        <li><a href="/Tastychan/category?id=<%= categorie[0] %>"><%= categorie[1] %></a></li>
+                                        <%
                                     }
-                                %>
-                            </ul>
-			</li>
-                        <% if(request.getSession().getAttribute("username") == null) { %>
-                            <li><a href="/Tastychan/login">Connexion</a></li>
-                        <% } else { %>
-                            <li><a href="/Tastychan/upload">Ajouter une image</a></li>
-                            <li><a href="/Tastychan/logout">Déconnexion</a></li>
-                        <% } %>
+                                }
+                            %>
+                        </ul>
+                    </li>     
+                    <% if(request.getSession().getAttribute("username") != null) { %>
+                        <li><a href="/Tastychan/upload">Ajouter une image</a></li>
+                    <% }  %>
 		</ul>
 	</nav>
 	<div id="content">

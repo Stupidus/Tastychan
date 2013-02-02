@@ -46,7 +46,7 @@ public class login extends HttpServlet {
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         if(username != null && password != null) {
-            String[] authenticationResult = Models.login.authenticate(username, password);
+            String[] authenticationResult = Models.users.authenticate(username, password);
             if(authenticationResult[0].equals("true")) {
                 request.setAttribute("flash", "<p class='green'>Vous êtes à présent connecté</p>");
                 HttpSession session = request.getSession(true);

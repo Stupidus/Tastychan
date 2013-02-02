@@ -4,9 +4,12 @@
  */
 package Controllers;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Victor
  */
-public class category extends HttpServlet {
+public class image extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -28,20 +31,15 @@ public class category extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setAttribute("listeCategories",  Models.categories.getAll());
-        if("index".equals(request.getParameter("action")) || request.getParameter("action") == null) {
-            this.index(request, response);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id")); 
+        OutputStream out = response.getOutputStream();  
+        try {
+            RenderedImage myBufferedImage = Models.images.getImage(id);
+            ImageIO.write(myBufferedImage, "png", out);
+        } finally {            
+            out.close();
         }
-    }
-    
-    public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {           
-        int idCategory = Integer.parseInt(request.getParameter("id"));    
-        Object[][] listeImages = Models.images.getAllByIdCategorie(idCategory);
-        request.setAttribute("listeImages",  listeImages);
-        RequestDispatcher rd = request.getRequestDispatcher("category/index.jsp");
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
