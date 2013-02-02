@@ -29,6 +29,16 @@ public class Connexion {
             return stm.executeQuery(query);
     }
     
+    public PreparedStatement getPrepQuery(String query) throws SQLException
+    {
+        return this.conn.prepareStatement(query);
+    }
+    
+    public int execPrepQuery(PreparedStatement pstmt) throws SQLException
+    {
+            return pstmt.executeUpdate();
+    }
+    
     public void closeConnexion()
     {
         try {

@@ -17,10 +17,12 @@
 			<li>Catégories
                             <ul>
                                 <%
-                                    for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
-                                        %>
-                                        <li><a href="/Tastychan/category?id=<%= categorie[0] %>"><%= categorie[1] %></a></li>
-                                        <%
+                                    if(request.getAttribute("listeCategories") != null) {
+                                        for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
+                                            %>
+                                            <li><a href="/Tastychan/category?id=<%= categorie[0] %>"><%= categorie[1] %></a></li>
+                                            <%
+                                        }
                                     }
                                 %>
                             </ul>

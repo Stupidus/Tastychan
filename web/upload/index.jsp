@@ -16,7 +16,7 @@
     }
 %>
 <br/>
-<form action="?action=upload" method="post" enctype="multipart/form-data">
+<form action="?action=upload" method="post" enctype="multipart/form-data" name="fuckujava">
     <fieldset>
         <legend>Ajout d'image</legend>
         <label for="label">Titre : </label>
