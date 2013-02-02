@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,17 +13,18 @@
 	</header>
 	<nav>
 		<ul>
-                    <li>
-                        <%
-                        if(request.getSession().getAttribute("username") != null) {
-                            out.println("Bienvenue "+request.getSession().getAttribute("username"));
-                        }
-                     %>
-                    </li>
                     <% if(request.getSession().getAttribute("username") == null) { %>
                         <li><a href="/Tastychan/login">Connexion</a></li>
                         <li><a href="/Tastychan/register">S'enregistrer</a></li>
-                    <% } else { %>
+                    <% } else {
+                        int nbItem = 0;                        
+                        if(request.getSession().getAttribute("Panier") != null) {
+                            ArrayList panier = (ArrayList) request.getSession().getAttribute("Panier");
+                             nbItem = panier.size();
+                        }
+                    %>
+                        <li>Bienvenue <%= request.getSession().getAttribute("username") %></li>
+                        <li><a href="#">Panier (<%= nbItem %>)</a></li>
                         <li><a href="/Tastychan/logout">Déconnexion</a></li>
                     <% } %>
                     <li>&nbsp;</li>

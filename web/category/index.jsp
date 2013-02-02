@@ -18,7 +18,7 @@
             %>
             <p>
                 <b><%= image[1] %></b><br/>
-                <a href="image?id=<%= image[0] %>" target="_blank"><img src="image?id=<%= image[0] %>" style="max-width:200px;max-height:200px"/></a>
+                <a href="fiche?id=<%= image[0] %>" target="_blank"><img src="image?id=<%= image[0] %>" style="max-width:200px;max-height:200px"/></a>
                 <pre><%= image[2] %></pre>
             </p>
             <%

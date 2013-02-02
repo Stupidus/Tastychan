@@ -100,5 +100,33 @@ public class images {
         }
         conn.closeConnexion();
         return bi;
-    } 
+    }
+    
+    public static String[] getFicheById(int id) {
+        String[] listeImage = new String[4];
+        Connexion conn = new Connexion();
+        ResultSet rset;
+        try {            
+            rset = conn.execQuery("SELECT * FROM images WHERE id = "+id+"");
+            try {
+                while(rset.next()) {
+                    listeImage[0] = rset.getString(1); //ID
+                    listeImage[1] = rset.getString(2); //LABEL
+                    int user_id = rset.getInt(4);
+                    String[] user = Models.users.getUser(user_id);
+                    listeImage[2] = user[1]; //USERNAME
+                    int categorie_id = rset.getInt(5);
+                    String[] categorie = Models.categories.getCategorie(categorie_id);
+                    listeImage[3] = categorie[1]; //CATEGORY_ID
+                }
+            }
+            catch(NullPointerException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.closeConnexion();        
+        return listeImage;
+    }
 }

@@ -45,4 +45,26 @@ public class categories {
         conn.closeConnexion();        
         return listeCategorie;
     }
+    
+    public static String[] getCategorie(int id) {        
+        String[] categorie = new String[2];
+        Connexion conn = new Connexion();
+        ResultSet rset;
+        try {                        
+            rset = conn.execQuery("SELECT * FROM categories WHERE id = "+id+"");
+            try {
+                while(rset.next()) {
+                    categorie[0] = rset.getString(1);
+                    categorie[1] = rset.getString(2);
+                }
+            }
+            catch(NullPointerException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.closeConnexion();        
+        return categorie;
+    }
 }
