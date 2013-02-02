@@ -16,7 +16,7 @@
     }
 %>
 <br/>
-<form action="?action=upload" method="post" enctype="multipart/form-data" name="fuckujava">
+<form action="?action=upload" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Ajout d'image</legend>
         <label for="label">Titre : </label>
@@ -25,7 +25,7 @@
         <label for="image">Image : </label>
         <input type="file" name="image" id="image"/>
         <br/>
-        <label for="categorie">Catégorie</label>
+        <label for="categorie">Catégorie :</label>
         <select name="categorie" id="categorie">
             <%
                 for(String[] categorie : (String[][]) request.getAttribute("listeCategories")) {
