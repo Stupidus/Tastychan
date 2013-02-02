@@ -21,6 +21,7 @@
                     </li>
                     <% if(request.getSession().getAttribute("username") == null) { %>
                         <li><a href="/Tastychan/login">Connexion</a></li>
+                        <li><a href="/Tastychan/register">S'enregistrer</a></li>
                     <% } else { %>
                         <li><a href="/Tastychan/logout">Déconnexion</a></li>
                     <% } %>

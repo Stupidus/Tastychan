@@ -45,7 +45,7 @@ public class login extends HttpServlet {
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {                
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
-        if(username != null && password != null) {
+        if(username.length() > 0 && password.length() > 0) {
             String[] authenticationResult = Models.users.authenticate(username, password);
             if(authenticationResult[0].equals("true")) {
                 request.setAttribute("flash", "<p class='green'>Vous êtes à présent connecté</p>");
@@ -54,14 +54,13 @@ public class login extends HttpServlet {
                 session.setAttribute("id", authenticationResult[1]);
             }
             else
-                request.setAttribute("flash", "<p class='red'>Erreur lors de la connexion</p>");
-            RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");
-            rd.forward(request, response);
+                request.setAttribute("flash", "<p class='red'>Erreur lors de la connexion</p>");            
         }
         else {
-            RequestDispatcher rd = request.getRequestDispatcher("template/error.jsp");
-            rd.forward(request, response);
+            request.setAttribute("flash", "<p class='red'>Erreur lors de la connexion</p>");            
         }
+        RequestDispatcher rd = request.getRequestDispatcher("home/index.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

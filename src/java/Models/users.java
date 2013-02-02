@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Components.StringComponent;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -24,6 +25,7 @@ public class users {
     public static String[] authenticate(String username, String plainPassword) {
         Connexion conn = new Connexion();
         String[] result = new String[2];
+        result[0] = "false";
         try {
             String password = StringComponent.getEncodedPassword(plainPassword);
             ResultSet rset = conn.execQuery("SELECT * FROM users WHERE username = '"+username+"' && password = '"+password+"'");
@@ -65,5 +67,24 @@ public class users {
         }
         conn.closeConnexion();
         return user;
+    }
+    
+    public static boolean addUser(String username, String password) {
+        Connexion conn = new Connexion();
+        boolean ret = false;
+        try {
+            PreparedStatement pstmt = conn.getPrepQuery("INSERT INTO users (username, password) VALUES (?, ?)");
+            pstmt.setString(1, username);
+            pstmt.setString(2, StringComponent.getEncodedPassword(password));
+            int res = conn.execPrepQuery(pstmt);
+            if(res > 0)
+                ret = true;
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.closeConnexion();
+        return ret;
     }
 }

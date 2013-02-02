@@ -94,7 +94,10 @@ public class upload extends HttpServlet {
                 }
             }
         }
-        Models.images.uploadImage(label, io, categorie_id, user_id);
+        if(Models.images.uploadImage(label, io, categorie_id, user_id) > 0)
+            request.setAttribute("flash", "<p class='green'>L'image a uploadée</p>");
+        else
+            request.setAttribute("flash", "<p class='red'>Erreur lors de l'upload, peut-être dû à une taille d'image trop grande</p>");
         RequestDispatcher rd = request.getRequestDispatcher("upload/index.jsp");
         rd.forward(request, response);
     }

@@ -26,7 +26,8 @@ public class images {
     private String label;
     private FileInputStream image;
     
-    public static void uploadImage(String label, InputStream image, int categorie_id, int user_id) {
+    public static int uploadImage(String label, InputStream image, int categorie_id, int user_id) {
+        int result = 0;
         try {
             Connexion conn = new Connexion();
             PreparedStatement pstmt = conn.getPrepQuery("INSERT INTO images (label, data, user_id, categorie_id) VALUES (?, ?, ?, ?)");
@@ -34,11 +35,12 @@ public class images {
             pstmt.setBinaryStream(2, image);
             pstmt.setInt(3, user_id);
             pstmt.setInt(4, categorie_id);
-            conn.execPrepQuery(pstmt);
+            result = conn.execPrepQuery(pstmt);
             conn.closeConnexion();
         } catch (SQLException ex) {
             Logger.getLogger(images.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;
     }
     
     public static String[][] getAllByIdCategorie(int id_categorie) {
