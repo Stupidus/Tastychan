@@ -73,6 +73,7 @@ public class upload extends HttpServlet {
         String label = null;
         int categorie_id = 0;
         int user_id = 0;
+        String ext = null;
         InputStream io = null;
         Iterator i = items.iterator();
         while (i.hasNext()) {
@@ -90,11 +91,12 @@ public class upload extends HttpServlet {
                 }
             } else {
                 if(item.getFieldName().equals("image")) {
+                    ext = item.getName().substring(item.getName().lastIndexOf(".")+1);
                     io = item.getInputStream();     
                 }
             }
         }
-        if(Models.images.uploadImage(label, io, categorie_id, user_id) > 0)
+        if(Models.images.uploadImage(label, io, categorie_id, user_id, ext) > 0)
             request.setAttribute("flash", "<p class='green'>L'image a uploadée</p>");
         else
             request.setAttribute("flash", "<p class='red'>Erreur lors de l'upload, peut-être dû à une taille d'image trop grande</p>");

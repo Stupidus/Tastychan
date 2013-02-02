@@ -35,8 +35,9 @@ public class image extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id")); 
         OutputStream out = response.getOutputStream();  
         try {
+            String[] image = Models.images.getFicheById(id);
             RenderedImage myBufferedImage = Models.images.getImage(id);
-            ImageIO.write(myBufferedImage, "png", out);
+            ImageIO.write(myBufferedImage, image[4], out);
         } finally {            
             out.close();
         }

@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,15 +28,16 @@ public class images {
     private String label;
     private FileInputStream image;
     
-    public static int uploadImage(String label, InputStream image, int categorie_id, int user_id) {
+    public static int uploadImage(String label, InputStream image, int categorie_id, int user_id, String ext) {
         int result = 0;
         try {
             Connexion conn = new Connexion();
-            PreparedStatement pstmt = conn.getPrepQuery("INSERT INTO images (label, data, user_id, categorie_id) VALUES (?, ?, ?, ?)");
+            PreparedStatement pstmt = conn.getPrepQuery("INSERT INTO images (label, data, user_id, categorie_id, ext) VALUES (?, ?, ?, ?, ?)");
             pstmt.setString(1, label);            
             pstmt.setBinaryStream(2, image);
             pstmt.setInt(3, user_id);
             pstmt.setInt(4, categorie_id);
+            pstmt.setString(5, ext);
             result = conn.execPrepQuery(pstmt);
             conn.closeConnexion();
         } catch (SQLException ex) {
@@ -103,7 +106,7 @@ public class images {
     }
     
     public static String[] getFicheById(int id) {
-        String[] listeImage = new String[4];
+        String[] listeImage = new String[5];
         Connexion conn = new Connexion();
         ResultSet rset;
         try {            
@@ -118,6 +121,7 @@ public class images {
                     int categorie_id = rset.getInt(5);
                     String[] categorie = Models.categories.getCategorie(categorie_id);
                     listeImage[3] = categorie[1]; //CATEGORY_ID
+                    listeImage[4] = rset.getString(6); //EXT
                 }
             }
             catch(NullPointerException ex) {
@@ -128,5 +132,59 @@ public class images {
         }
         conn.closeConnexion();        
         return listeImage;
+    }
+    
+    public static String[][] getAllByIdList(ArrayList liste) {
+        String[][] listeImage = new String[liste.size()][5];
+        Connexion conn = new Connexion();
+        ResultSet rset;
+        String listeId = liste.toString();
+        listeId = listeId.substring(1, listeId.length()-1);   
+        try {                        
+            rset = conn.execQuery("SELECT * FROM images WHERE id IN ("+listeId+")");
+            try {
+                int i = 0;
+                while(rset.next()) {
+                    listeImage[i][0] = rset.getString(1); //ID
+                    listeImage[i][1] = rset.getString(2); //LABEL
+                    int user_id = rset.getInt(4);
+                    String[] user = Models.users.getUser(user_id);
+                    listeImage[i][2] = user[1]; //USERNAME
+                    listeImage[i][3] = rset.getString(5); //CATEGORY_ID
+                    listeImage[i][4] = rset.getString(6); //EXT
+                    i++;
+                }
+            }
+            catch(NullPointerException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.closeConnexion();        
+        return listeImage;
+    }
+    
+    public static byte[] getRawImage(int id) {
+        InputStream is = null;
+        Connexion conn = new Connexion();
+        ResultSet rset;
+        byte[] res = null;
+        try {                        
+            rset = conn.execQuery("SELECT * FROM images WHERE id = "+id+"");
+            try {
+                while(rset.next()) {
+                    Blob blob = (Blob) rset.getBlob(3);
+                    is = blob.getBinaryStream();       
+                    res = rset.getBytes(3);
+                }
+            } catch(NullPointerException ex) {
+                Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.closeConnexion();
+        return res;
     }
 }

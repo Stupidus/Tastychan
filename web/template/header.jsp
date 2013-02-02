@@ -24,7 +24,7 @@
                         }
                     %>
                         <li>Bienvenue <%= request.getSession().getAttribute("username") %></li>
-                        <li><a href="#">Panier (<%= nbItem %>)</a></li>
+                        <li><a href="/Tastychan/panier">Panier (<%= nbItem %>)</a></li>
                         <li><a href="/Tastychan/logout">Déconnexion</a></li>
                     <% } %>
                     <li>&nbsp;</li>
