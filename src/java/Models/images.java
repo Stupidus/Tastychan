@@ -27,6 +27,7 @@ public class images {
     private int id;
     private String label;
     private FileInputStream image;
+    public static final int IMAGE_PAR_PAGE = 5;
     
     public static int uploadImage(String label, InputStream image, int categorie_id, int user_id, String ext) {
         int result = 0;
@@ -46,20 +47,40 @@ public class images {
         return result;
     }
     
-    public static String[][] getAllByIdCategorie(int id_categorie) {
-        String[][] listeImage = new String[10][4];
+    public static int pagination(int id_categorie) {
+        Connexion conn = new Connexion();
+        ResultSet rset;
+        int nbImages = 0;
+        int nbPages = 0;
+        try {            
+            rset = conn.execQuery("SELECT COUNT(*) FROM images WHERE categorie_id = "+id_categorie+"");
+            while(rset.next()) {
+                nbImages  = rset.getInt(1);
+            }
+            nbPages = (int) Math.ceil((double) nbImages/(double) images.IMAGE_PAR_PAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(images.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nbPages;
+    }
+    
+    public static String[][] getAllByIdCategorie(int id_categorie, int page) {
+        String[][] listeImage = null;
         Connexion conn = new Connexion();
         ResultSet rset;
         int nbImage = 10;
+        if(page < 1)
+            page = 1;
+        page--;
         try {            
-            rset = conn.execQuery("SELECT COUNT(*) FROM images WHERE categorie_id = "+id_categorie+"");
+            rset = conn.execQuery("SELECT COUNT(*) FROM (SELECT 1 FROM images WHERE categorie_id = "+id_categorie+" LIMIT "+page*images.IMAGE_PAR_PAGE+", "+images.IMAGE_PAR_PAGE+") seriously");
             while(rset.next()) {
                 nbImage = rset.getInt(1);
             }
             listeImage = new String[nbImage][4];
-            rset = conn.execQuery("SELECT * FROM images WHERE categorie_id = "+id_categorie+"");
+            rset = conn.execQuery("SELECT * FROM images WHERE categorie_id = "+id_categorie+" LIMIT "+page*images.IMAGE_PAR_PAGE+", "+images.IMAGE_PAR_PAGE);
             try {
-                int i = 0;
+                int i = 0;                
                 while(rset.next()) {
                     listeImage[i][0] = rset.getString(1); //ID
                     listeImage[i][1] = rset.getString(2); //LABEL
@@ -166,16 +187,13 @@ public class images {
     }
     
     public static byte[] getRawImage(int id) {
-        InputStream is = null;
         Connexion conn = new Connexion();
         ResultSet rset;
         byte[] res = null;
         try {                        
             rset = conn.execQuery("SELECT * FROM images WHERE id = "+id+"");
             try {
-                while(rset.next()) {
-                    Blob blob = (Blob) rset.getBlob(3);
-                    is = blob.getBinaryStream();       
+                while(rset.next()) {      
                     res = rset.getBytes(3);
                 }
             } catch(NullPointerException ex) {

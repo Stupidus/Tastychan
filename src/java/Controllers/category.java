@@ -38,8 +38,14 @@ public class category extends HttpServlet {
     
     public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {           
         int idCategory = Integer.parseInt(request.getParameter("id"));    
-        Object[][] listeImages = Models.images.getAllByIdCategorie(idCategory);
+        int page;
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
+        else
+            page = 0;
+        Object[][] listeImages = Models.images.getAllByIdCategorie(idCategory, page);
         request.setAttribute("listeImages",  listeImages);
+        request.setAttribute("nbPages",  Models.images.pagination(idCategory));
         RequestDispatcher rd = request.getRequestDispatcher("category/index.jsp");
         rd.forward(request, response);
     }

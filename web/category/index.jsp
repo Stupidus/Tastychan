@@ -26,4 +26,14 @@
     }
 %>
 
+<br/>
+Page : 
+<% 
+for (int i = 1; i <= Integer.parseInt(request.getAttribute("nbPages").toString()); i++) {
+    
+    %>
+        <a href="/Tastychan/category?id=<%= request.getParameter("id") %>&page=<%= i %>"><%= i %></a>
+    <%
+}
+    %>
 <%@include file='../template/footer.jsp'%>
