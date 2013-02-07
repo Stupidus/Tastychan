@@ -18,9 +18,6 @@ import java.sql.PreparedStatement;
  * @author Victor
  */
 public class users {
-    private int id;
-    private String username;
-    private String password;
     
     public static String[] authenticate(String username, String plainPassword) {
         Connexion conn = new Connexion();

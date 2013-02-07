@@ -24,9 +24,6 @@ import javax.imageio.ImageIO;
  * @author Victor
  */
 public class images {
-    private int id;
-    private String label;
-    private FileInputStream image;
     public static final int IMAGE_PAR_PAGE = 5;
     
     public static int uploadImage(String label, InputStream image, int categorie_id, int user_id, String ext) {
@@ -51,7 +48,7 @@ public class images {
         Connexion conn = new Connexion();
         ResultSet rset;
         int nbImages = 0;
-        int nbPages = 0;
+        int nbPages = 1;
         try {            
             rset = conn.execQuery("SELECT COUNT(*) FROM images WHERE categorie_id = "+id_categorie+"");
             while(rset.next()) {
@@ -61,6 +58,8 @@ public class images {
         } catch (SQLException ex) {
             Logger.getLogger(images.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(nbPages == 0)
+            nbPages = 1;
         return nbPages;
     }
     

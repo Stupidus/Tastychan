@@ -11,8 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class categories {
-    private int id;
-    private String label;
     
     public static String[][] getAll() {        
         String[][] listeCategorie = new String[10][2];

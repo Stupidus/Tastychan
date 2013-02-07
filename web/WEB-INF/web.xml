@@ -36,6 +36,10 @@
         <servlet-name>panier</servlet-name>
         <servlet-class>Controllers.panier</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>rechercher</servlet-name>
+        <servlet-class>Controllers.rechercher</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>panier</servlet-name>
         <url-pattern>/panier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rechercher</servlet-name>
+        <url-pattern>/rechercher</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
