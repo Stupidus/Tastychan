@@ -11,22 +11,22 @@
         out.println(request.getAttribute("flash"));
     }    
 %>
-
+<ul id="thumbs">
 <%
     if(request.getAttribute("listeImages") != null) {
         for(String[] image : (String[][]) request.getAttribute("listeImages")) {
             %>
-            <p>
+            <li>
                 <b><%= image[1] %></b><br/>
                 <a href="fiche?id=<%= image[0] %>" target="_blank"><img src="image?id=<%= image[0] %>" style="max-width:200px;max-height:200px"/></a>
                 <pre><%= image[2] %></pre>
-            </p>
+            </li>
             <%
         }
     }
 %>
-
-<br/>
+</ul>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 Page : 
 <% 
 for (int i = 1; i <= Integer.parseInt(request.getAttribute("nbPages").toString()); i++) {
